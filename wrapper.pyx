@@ -9,7 +9,6 @@ ctypedef int csmSizeInt
 ctypedef void (*cfptr)(int)
 ctypedef signed int csmInt32
 ctypedef float csmFloat32
-ctypedef csmInt32 (*TextureLoaderCallback)(const char*)
 
 cdef extern from "Math/CubismMatrix44.hpp" namespace "Live2D::Cubism::Framework":
     cdef cppclass CubismMatrix44:
@@ -85,25 +84,10 @@ cdef extern from "LAppAllocator.hpp":
 cdef extern from "LAppModel.hpp":
     cdef cppclass LAppModel(CubismUserModel):
         void LoadAssets(const char* dir, const char* filename)
-        void SetTextureLoaderCallback(TextureLoaderCallback callback)
-        void SetTextureLoader(ITextureLoader* callback)
         void Draw(CubismMatrix44& matrix)
         void Update()
         void SetRandomExpression()
-        
-    cdef cppclass ITextureLoader:
-        int LoadTexture(const char* path)
-               
-cdef cppclass TextureLoader(ITextureLoader):
 
-    object callback
-
-    TextureLoader(callback):
-        this.callback = callback
-    
-    int LoadTexture(const char* path):
-        return callback(path.encode("UTF-8"))
-        
 cdef class PyCubismFramework:
 
     @staticmethod
@@ -184,16 +168,7 @@ cdef class PyLAppModel:
         
     def load_assets(self, unicode dir, unicode filename):
         self.thisptr.LoadAssets(dir.encode("UTF-8"), filename.encode("UTF-8"))
-        
-    def set_texture_loader_callback(self, callback):
-        #self.thisptr.SetTextureLoaderCallback(self.fuck)
- #       print(callback(2))
-        pass
-                     
-    def set_texture_loader(self, callback):
-        # TODO: Use global texture loader function.
-        self.thisptr.SetTextureLoader(new TextureLoader(callback))
-        
+                             
     def update(self):
         self.thisptr.Update()
         

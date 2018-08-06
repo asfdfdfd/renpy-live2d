@@ -22,23 +22,6 @@ class Live2DDisplayable(renpy.Displayable):
         PyCubismFramework.initialize()
         # TODO: Do not forget to call 'PyCubismFramework.dispose()'.
                                 
-    def texture_loader(self, path):        
-        glActiveTexture(GL_TEXTURE0)
-        
-        texture_id = glGenTextures(1)
-        glBindTexture(GL_TEXTURE_2D, texture_id)
-        
-        surface = pygame.image.load(path)
-        BYTEP = ctypes.POINTER(ctypes.c_ubyte)
-        surface_pixels_ptr = ctypes.cast(surface._pixels_address, BYTEP)
-            
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface.get_width(), surface.get_height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, surface_pixels_ptr)
- 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-    
-        return texture_id
-            
     def render(self, width, height, st, at):            
         if self.framebuffer == 0:
             self.create_framebuffer()
@@ -145,7 +128,7 @@ class Live2DDisplayable(renpy.Displayable):
                     
     def create_live2d_model(self):
         self.model = PyLAppModel()
-        self.model.set_texture_loader(self.texture_loader)
+        # self.model.set_texture_loader(self.texture_loader)
         # self.model.load_assets(u'/Users/asfdfdfd/Work/asfdfdfd/ProjectLive2D/game/live2d_resources/Haru/', u'Haru.model3.json')
         self.model.load_assets(u'/Users/asfdfdfd/Work/asfdfdfd/ProjectLive2D/game/live2d_resources/Hiyori/', u'Hiyori.model3.json')
         # self.model.load_assets(u'/Users/asfdfdfd/Work/asfdfdfd/ProjectLive2D/game/live2d_resources/Mark', u'Mark.model3.json')
