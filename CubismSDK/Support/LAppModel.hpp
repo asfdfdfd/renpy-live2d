@@ -1,27 +1,17 @@
 ﻿/*
- * Copyright(c) Live2D Inc. All rights reserved.
- *
- * Use of this source code is governed by the Live2D Open Software license
- * that can be found at http://live2d.com/eula/live2d-open-software-license-agreement_en.html.
- */
+* Copyright(c) Live2D Inc. All rights reserved.
+*
+* Use of this source code is governed by the Live2D Open Software license
+* that can be found at http://live2d.com/eula/live2d-open-software-license-agreement_en.html.
+*/
 
 #pragma once
-
-#include <functional>
-#include <string>
 
 #include <CubismFramework.hpp>
 #include <Model/CubismUserModel.hpp>
 #include <ICubismModelSetting.hpp>
-#include <Type/CubismBasicType.hpp>
 #include <Type/csmRectF.hpp>
 
-typedef Csm::csmInt32 (*TextureLoaderCallback)(const char*);
-
-class ITextureLoader {
-public:    
-    virtual int LoadTexture(const char* path) = 0;
-};
 
 /**
  * @brief ユーザーが実際に使用するモデルの実装クラス<br>
@@ -46,7 +36,7 @@ public:
      * @brief model3.jsonが置かれたディレクトリとファイルパスからモデルを生成する
      *
      */
-    void LoadAssets(const Csm::csmChar dir[], const  Csm::csmChar fileName[]);
+    void LoadAssets(const Csm::csmChar* dir, const  Csm::csmChar* fileName);
 
     /**
      * @brief レンダラを再構築する
@@ -115,13 +105,6 @@ public:
      */
     virtual Csm::csmBool HitTest(const Csm::csmChar* hitAreaName, Csm::csmFloat32 x, Csm::csmFloat32 y);
 
-    Csm::csmRectF GetDrawableArea(Csm::csmInt32 drawableIndex, const Csm::CubismMatrix44& vpMatrix, const Csm::CubismVector2& windowSize) const;
-    const Csm::csmVector<Csm::csmRectF>& GetHitAreas(const Csm::CubismMatrix44& vpMatrix, const Csm::CubismVector2& windowSize);
-    const Csm::csmVector<Csm::csmRectF>& GetUserDataAreas(const Csm::CubismMatrix44& vpMatrix, const Csm::CubismVector2& windowSize);
-
-    void SetTextureLoaderCallback(const TextureLoaderCallback& callback) { _callbackTextureLoader = callback; }
-    void SetTextureLoader(ITextureLoader* textureLoader) { _textureLoader = textureLoader; }
-        
 protected:
     /**
      *  @brief  モデルを描画する処理。モデルを描画する空間のView-Projection行列を渡す。
@@ -175,29 +158,21 @@ private:
     */
     void ReleaseExpressions();
 
-    Csm::ICubismModelSetting* _modelSetting;        ///< モデルセッティング情報
-    Csm::csmString _modelHomeDir;                   ///< モデルセッティングが置かれたディレクトリ
-    Csm::csmFloat32 _userTimeSeconds;               ///< デルタ時間の積算値[秒]
-
+    Csm::ICubismModelSetting* _modelSetting; ///< モデルセッティング情報
+    Csm::csmString _modelHomeDir; ///< モデルセッティングが置かれたディレクトリ
+    Csm::csmFloat32 _userTimeSeconds; ///< デルタ時間の積算値[秒]
     Csm::csmVector<Csm::CubismIdHandle> _eyeBlinkIds; ///<　モデルに設定されたまばたき機能用パラメータID
-    Csm::csmVector<Csm::CubismIdHandle> _lipSyncIds;  ///< モデルに設定されたリップシンク機能用パラメータID
-
-    Csm::csmMap<Csm::csmString, Csm::ACubismMotion*>   _motions;       ///< 読み込まれているモーションのリスト
-    Csm::csmMap<Csm::csmString, Csm::ACubismMotion*>   _expressions;   ///< 読み込まれている表情のリスト
-
-    Csm::csmVector<Csm::csmRectF>_hitArea;
-    Csm::csmVector<Csm::csmRectF>_userArea;
-
-    const Csm::CubismId* _idParamAngleX;            ///< パラメータID: ParamAngleX
-    const Csm::CubismId* _idParamAngleY;            ///< パラメータID: ParamAngleX
-    const Csm::CubismId* _idParamAngleZ;            ///< パラメータID: ParamAngleX
-    const Csm::CubismId* _idParamBodyAngleX;        ///< パラメータID: ParamBodyAngleX
-    const Csm::CubismId* _idParamEyeBallX;          ///< パラメータID: ParamEyeBallX
-    const Csm::CubismId* _idParamEyeBallY;          ///< パラメータID: ParamEyeBallXY
-
-    TextureLoaderCallback _callbackTextureLoader;
-    
-    ITextureLoader* _textureLoader;
+    Csm::csmVector<Csm::CubismIdHandle> _lipSyncIds; ///< モデルに設定されたリップシンク機能用パラメータID
+    Csm::csmMap<Csm::csmString, Csm::ACubismMotion*>   _motions; ///< 読み込まれているモーションのリスト
+    Csm::csmMap<Csm::csmString, Csm::ACubismMotion*>   _expressions; ///< 読み込まれている表情のリスト
+    Csm::csmVector<Csm::csmRectF> _hitArea;
+    Csm::csmVector<Csm::csmRectF> _userArea;
+    const Csm::CubismId* _idParamAngleX; ///< パラメータID: ParamAngleX
+    const Csm::CubismId* _idParamAngleY; ///< パラメータID: ParamAngleX
+    const Csm::CubismId* _idParamAngleZ; ///< パラメータID: ParamAngleX
+    const Csm::CubismId* _idParamBodyAngleX; ///< パラメータID: ParamBodyAngleX
+    const Csm::CubismId* _idParamEyeBallX; ///< パラメータID: ParamEyeBallX
+    const Csm::CubismId* _idParamEyeBallY; ///< パラメータID: ParamEyeBallXY
 };
 
 

@@ -1,12 +1,12 @@
 ﻿/*
- * Copyright(c) Live2D Inc. All rights reserved.
- *
- * Use of this source code is governed by the Live2D Open Software license
- * that can be found at http://live2d.com/eula/live2d-open-software-license-agreement_en.html.
- */
+* Copyright(c) Live2D Inc. All rights reserved.
+*
+* Use of this source code is governed by the Live2D Open Software license
+* that can be found at http://live2d.com/eula/live2d-open-software-license-agreement_en.html.
+*/
 
-#include <CubismFramework.hpp>
 #include "LAppDefine.hpp"
+#include <CubismFramework.hpp>
 
 namespace LAppDefine {
 
@@ -16,16 +16,23 @@ namespace LAppDefine {
     const csmFloat32 ViewMaxScale = 2.0f;
     const csmFloat32 ViewMinScale = 0.8f;
 
-    const csmFloat32 ViewLogicalLeft = -1;
-    const csmFloat32 ViewLogicalRight = 1;
+    const csmFloat32 ViewLogicalLeft = -1.0f;
+    const csmFloat32 ViewLogicalRight = 1.0f;
 
-    const csmFloat32 ViewLogicalMaxLeft = -2;
-    const csmFloat32 ViewLogicalMaxRight = 2;
-    const csmFloat32 ViewLogicalMaxBottom = -2;
-    const csmFloat32 ViewLogicalMaxTop = 2;
+    const csmFloat32 ViewLogicalMaxLeft = -2.0f;
+    const csmFloat32 ViewLogicalMaxRight = 2.0f;
+    const csmFloat32 ViewLogicalMaxBottom = -2.0f;
+    const csmFloat32 ViewLogicalMaxTop = 2.0f;
+
+    // 相対パス
+    const csmChar* ResourcesPath = "../../Res/";
 
     // モデルの後ろにある背景の画像ファイル
     const csmChar* BackImageName = "back_class_normal.png";
+    // 歯車
+    const csmChar* GearImageName = "icon_gear.png";
+    // 終了ボタン
+    const csmChar* PowerImageName = "CloseNormal.png";
 
     // モデル定義------------------------------------------
     // モデルを配置したディレクトリ名の配列
@@ -54,7 +61,6 @@ namespace LAppDefine {
     // デバッグ用ログの表示オプション
     const csmBool DebugLogEnable = true;
     const csmBool DebugTouchLogEnable = false;
-    const csmBool DebugDrawRectEnable = false;
 
     // Frameworkから出力するログのレベル設定
     const CubismFramework::Option::LogLevel CubismLoggingLevel = CubismFramework::Option::LogLevel_Verbose;
