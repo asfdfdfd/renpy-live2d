@@ -7,6 +7,8 @@
 
 #include "LAppAllocator.hpp"
 
+#include <cstdlib>
+
 using namespace Csm;
 
 void* LAppAllocator::Allocate(const csmUint32  size)

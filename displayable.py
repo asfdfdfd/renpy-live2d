@@ -4,7 +4,7 @@ from ctypes import util, c_float
 from OpenGL.GL import *
 from OpenGL.GL import shaders
 from OpenGL.GLU import *
-from live2d.wrapper import PyCubismFramework, PyCubismUserModel, PyCubismModelSettingJson, PyLAppModel
+from live2d.wrapper import PyCubismFramework, PyCubismUserModel, PyCubismModelSettingJson, PyLAppModel, PyLAppDelegate
 import json
 import os
 import pygame
@@ -18,6 +18,12 @@ class Live2DDisplayable(renpy.Displayable):
         self.render_texture = 0
         self.render_buffer_depth = 0
                 
+        # TODO. Handle PyLAppDelegate::Run.
+        # TODO. Handle LAppView::Initialize.
+        # TODO. Handle LAppDelegate::SetRootDirectory.
+        # TODO. LAppPal::UpdateTime glfwGetTime.
+        # TODO. LAppLive2DManager::OnUpdate.
+        PyLAppDelegate.initialize()
         PyCubismFramework.startup()        
         PyCubismFramework.initialize()
         # TODO: Do not forget to call 'PyCubismFramework.dispose()'.

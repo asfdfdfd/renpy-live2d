@@ -88,6 +88,12 @@ cdef extern from "LAppModel.hpp":
         void Update()
         void SetRandomExpression()
 
+cdef extern from "LAppDelegate.hpp":
+    cdef cppclass LAppDelegate:
+        @staticmethod
+        LAppDelegate* GetInstance()
+        void Initialize()
+
 cdef class PyCubismFramework:
 
     @staticmethod
@@ -150,7 +156,10 @@ cdef class PyCubismUserModel:
     def get_renderer(self):
         return PyCubismRendererOpenGLES2.create(self.thisptr.GetRenderer[CubismRenderer_OpenGLES2]())
         
-#cdef void py_texture_loader_callback(py_lambda, )
+cdef class PyLAppDelegate:    
+    @staticmethod
+    def initialize():
+        LAppDelegate.GetInstance().Initialize()
         
 cdef class PyLAppModel:
     cdef LAppModel* thisptr

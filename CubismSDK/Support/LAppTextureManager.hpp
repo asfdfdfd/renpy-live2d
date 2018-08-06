@@ -8,8 +8,7 @@
 #pragma once
 
 #include <string>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include <Rendering/OpenGL/CubismRenderer_OpenGLES2.hpp>
 #include <Type/csmVector.hpp>
 
 /**

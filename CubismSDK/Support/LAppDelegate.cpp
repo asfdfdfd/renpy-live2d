@@ -8,9 +8,6 @@
 #include "LAppDelegate.hpp"
 #include <iostream>
 #include <sstream>
-#include <mach-o/dyld.h>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include "LAppView.hpp"
 #include "LAppPal.hpp"
 #include "LAppDefine.hpp"
@@ -52,41 +49,6 @@ bool LAppDelegate::Initialize()
         LAppPal::PrintLog("START");
     }
 
-    // GLFWの初期化
-    if (glfwInit() == GL_FALSE)
-    {
-        if (DebugLogEnable)
-        {
-            LAppPal::PrintLog("Can't initilize GLFW");
-        }
-        return GL_FALSE;
-    }
-
-    // Windowの生成_
-    _window = glfwCreateWindow(1900, 1000, "SAMPLE", NULL, NULL);
-    if (_window == NULL)
-    {
-        if (DebugLogEnable)
-        {
-            LAppPal::PrintLog("Can't create GLFW window.");
-        }
-        glfwTerminate();
-        return GL_FALSE;
-    }
-
-    // Windowのコンテキストをカレントに設定
-    glfwMakeContextCurrent(_window);
-    glfwSwapInterval(1);
-
-    if (glewInit() != GLEW_OK) {
-        if (DebugLogEnable)
-        {
-            LAppPal::PrintLog("Can't initilize glew.");
-        }
-        glfwTerminate();
-        return GL_FALSE;
-    }
-
     //テクスチャサンプリング設定
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -95,17 +57,13 @@ bool LAppDelegate::Initialize()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    //コールバック関数の登録
-    glfwSetMouseButtonCallback(_window, EventHandler::OnMouseCallBack);
-    glfwSetCursorPosCallback(_window, EventHandler::OnMouseCallBack);
-
     //AppViewの初期化
     _view->Initialize();
 
     // Cubism3の初期化
     InitializeCubism();
     
-    SetRootDirectory();
+    // SetRootDirectory();
     
     //load model
     LAppLive2DManager::GetInstance();
@@ -118,11 +76,6 @@ bool LAppDelegate::Initialize()
 
 void LAppDelegate::Release()
 {
-    // Windowの削除
-    glfwDestroyWindow(_window);
-
-    glfwTerminate();
-
     delete _textureManager;
     delete _view;
 
@@ -133,40 +86,37 @@ void LAppDelegate::Release()
     CubismFramework::Dispose();
 }
 
-void LAppDelegate::Run()
-{
-    //メインループ
-    while (glfwWindowShouldClose(_window) == GL_FALSE && !_isEnd)
-    {
-        // 時間更新
-        LAppPal::UpdateTime();
-
-        // 画面の初期化
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearDepth(1.0);
-
-        //描画更新 
-        _view->Render();
- 
-        // バッファの入れ替え
-        glfwSwapBuffers(_window);
-
-        // Poll for and process events
-        glfwPollEvents();
-    }
-
-    Release();
-
-    LAppDelegate::ReleaseInstance();
-}
+// void LAppDelegate::Run()
+// {
+//     //メインループ
+//     while (glfwWindowShouldClose(_window) == GL_FALSE && !_isEnd)
+//     {
+//         // 時間更新
+//         LAppPal::UpdateTime();
+//
+//         // 画面の初期化
+//         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+//         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//         glClearDepth(1.0);
+//
+//         //描画更新
+//         _view->Render();
+//
+//         // バッファの入れ替え
+//         glfwSwapBuffers(_window);
+//
+//         // Poll for and process events
+//         glfwPollEvents();
+//     }
+//
+//     Release();
+//
+//     LAppDelegate::ReleaseInstance();
+// }
 
 LAppDelegate::LAppDelegate():
     _cubismOption(),
-    _window(NULL),
     _captured(false),
-    _mouseX(0.0f),
-    _mouseY(0.0f),
     _isEnd(false)
 {
 	_rootDirectory = "";
@@ -193,49 +143,6 @@ void LAppDelegate::InitializeCubism()
     CubismMatrix44 projection;
 
     LAppPal::UpdateTime();
-}
-
-void LAppDelegate::OnMouseCallBack(GLFWwindow* window, int button, int action, int modify)
-{
-    if (_view == NULL)
-    {
-        return;
-    }
-    if (GLFW_MOUSE_BUTTON_LEFT != button)
-    {
-        return;
-    }
-
-    if (GLFW_PRESS == action)
-    {
-        _captured = true;
-        _view->OnTouchesBegan(_mouseX, _mouseY);
-    }
-    else if (GLFW_RELEASE == action)
-    {
-        if (_captured)
-        {
-            _captured = false;
-            _view->OnTouchesEnded(_mouseX, _mouseY);
-        }
-    }
-}
-
-void LAppDelegate::OnMouseCallBack(GLFWwindow* window, double x, double y)
-{
-    _mouseX = static_cast<float>(x);
-    _mouseY = static_cast<float>(y);
-
-    if (!_captured)
-    {
-        return;
-    }
-    if (_view == NULL)
-    {
-        return;
-    }
-
-    _view->OnTouchesMoved(_mouseX, _mouseY);
 }
 
 GLuint LAppDelegate::CreateShader()
@@ -277,20 +184,20 @@ GLuint LAppDelegate::CreateShader()
     return programId;
 }
 
-void LAppDelegate::SetRootDirectory()
-{
-    char path[1024];
-    uint32_t size = sizeof(path);
-    _NSGetExecutablePath(path, &size);
-    Csm::csmVector<string> splitStrings = this->Split(path, '/');
-    
-    this->_rootDirectory = "";
-    for(int i = 0; i < splitStrings.GetSize() - 1; i++)
-    {
-        this->_rootDirectory = this->_rootDirectory + "/" +splitStrings[i];
-    }
-    this->_rootDirectory += "/";
-}
+// void LAppDelegate::SetRootDirectory()
+// {
+//     char path[1024];
+//     uint32_t size = sizeof(path);
+//     _NSGetExecutablePath(path, &size);
+//     Csm::csmVector<string> splitStrings = this->Split(path, '/');
+//
+//     this->_rootDirectory = "";
+//     for(int i = 0; i < splitStrings.GetSize() - 1; i++)
+//     {
+//         this->_rootDirectory = this->_rootDirectory + "/" +splitStrings[i];
+//     }
+//     this->_rootDirectory += "/";
+// }
 
 Csm::csmVector<string> LAppDelegate::Split(const std::string& baseString, char delimiter)
 {

@@ -12,8 +12,6 @@
 #include <sys/stat.h>
 #include <iostream>
 #include <fstream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <Model/CubismMoc.hpp>
 #include "LAppDefine.hpp"
 
@@ -69,7 +67,7 @@ csmFloat32  LAppPal::GetDeltaTime()
 
 void LAppPal::UpdateTime()
 {
-    s_currentFrame = glfwGetTime();
+    // s_currentFrame = glfwGetTime();
     s_deltaTime = s_currentFrame - s_lastFrame;
     s_lastFrame = s_currentFrame;
 }
