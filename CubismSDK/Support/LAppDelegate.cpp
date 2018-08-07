@@ -119,7 +119,6 @@ LAppDelegate::LAppDelegate():
     _captured(false),
     _isEnd(false)
 {
-	_rootDirectory = "";
     _view = new LAppView();
     _textureManager = new LAppTextureManager();
 }
@@ -183,21 +182,6 @@ GLuint LAppDelegate::CreateShader()
 
     return programId;
 }
-
-// void LAppDelegate::SetRootDirectory()
-// {
-//     char path[1024];
-//     uint32_t size = sizeof(path);
-//     _NSGetExecutablePath(path, &size);
-//     Csm::csmVector<string> splitStrings = this->Split(path, '/');
-//
-//     this->_rootDirectory = "";
-//     for(int i = 0; i < splitStrings.GetSize() - 1; i++)
-//     {
-//         this->_rootDirectory = this->_rootDirectory + "/" +splitStrings[i];
-//     }
-//     this->_rootDirectory += "/";
-// }
 
 Csm::csmVector<string> LAppDelegate::Split(const std::string& baseString, char delimiter)
 {

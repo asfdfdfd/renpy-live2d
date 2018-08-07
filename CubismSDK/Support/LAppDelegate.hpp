@@ -70,17 +70,7 @@ public:
     * @brief   アプリケーションを終了する。
     */
     void AppEnd() { _isEnd = true; }
-    
-    /**
-     * @brief   ルートディレクトリを設定する。
-     */
-    // void SetRootDirectory();
-    
-    /**
-     * @brief   ルートディレクトリを取得する。
-     */
-    std::string GetRootDirectory(){ return _rootDirectory;}
-
+        
     /**
      * @brief   テクスチャマネージャーを取得する。
      */
@@ -113,5 +103,4 @@ private:
     bool _captured;                              ///< クリックしているか
     bool _isEnd;                                 ///< APP終了しているか
     LAppTextureManager* _textureManager;         ///< テクスチャマネージャー
-    std::string _rootDirectory; ///< ルートディレクトリ
 };
