@@ -21,7 +21,6 @@ class Live2DDisplayable(renpy.Displayable):
         # TODO. Handle PyLAppDelegate::Run.
         # TODO. Handle LAppView::Initialize.
         # TODO. Handle LAppDelegate::SetRootDirectory.
-        # TODO. LAppPal::UpdateTime glfwGetTime.
         # TODO. LAppLive2DManager::OnUpdate.
         PyLAppDelegate.initialize()
         PyCubismFramework.startup()        

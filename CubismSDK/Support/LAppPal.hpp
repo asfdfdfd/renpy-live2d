@@ -72,8 +72,7 @@ public:
     static void PrintMessage(const Csm::csmChar* message);
 
 private:
-    static double s_currentFrame;
-    static double s_lastFrame;
+    static struct timeval s_lastFrame;
     static double s_deltaTime;
 };
 
