@@ -21,15 +21,18 @@ class Live2DDisplayable(renpy.Displayable):
         self.scene = PyLAppScene()
         self.scene_initialized = False
         
+        self.render_width = 1024
+        self.render_height = 1024
+        
     def render(self, width, height, st, at):     
         if self.scene_initialized == False:
-            self.scene.initialize(1024, 1024)
+            self.scene.initialize(self.render_width, self.render_height)
             self.model = self.scene.create_model(u'/Users/asfdfdfd/Work/asfdfdfd/ProjectLive2D/game/live2d_resources/Hiyori/', u'Hiyori.model3.json')            
             self.scene_initialized = True
             
         self.scene.update()
                                   
-        result = renpy.Render(1024, 1024)
+        result = renpy.Render(self.render_width, self.render_height)
         surface = result.canvas().get_surface()
         surface.lock()
         self.scene.draw(surface.get_pitch() // surface.get_bytesize(), surface._pixels_address)        
