@@ -16,7 +16,7 @@ public:
     LAppScene();
     ~LAppScene();
     
-    void Initialize(const Csm::csmUint32& width, const Csm::csmUint32 height);
+    void Initialize(const Csm::csmUint32& width, const Csm::csmUint32& height);
     
     LAppModel* CreateModel(const Csm::csmChar* dir, const Csm::csmChar* fileName);
     void ReleaseModel(LAppModel* model);

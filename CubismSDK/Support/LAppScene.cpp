@@ -24,7 +24,7 @@ LAppScene::~LAppScene()
     }
 }
 
-void LAppScene::Initialize(const Csm::csmUint32& width, const Csm::csmUint32 height) 
+void LAppScene::Initialize(const Csm::csmUint32& width, const Csm::csmUint32& height) 
 {
     _width = width;
     _height = height;
