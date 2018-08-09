@@ -127,19 +127,21 @@ void LAppScene::Draw(const csmUint32& stride, void* surfacePixels)
     }
 
     // Render.
-    
+            
     const CubismMatrix44 saveProjection = projection;
     std::set<LAppModel*>::iterator it;
     for (it = _models.begin(); it != _models.end(); ++it)
     {
         LAppModel* model = (*it);
         projection = saveProjection;
-
+        // glReadPixels will produce flipped image. So let's render it upside down.
+        projection.ScaleRelative(1, -1);
+                
         (*it)->Draw(projection);
     }
-        
+             
     // Read render result.
-    
+            
     glPixelStorei(GL_PACK_ROW_LENGTH, stride);
     glReadPixels(0, 0, _width, _height, GL_RGBA, GL_UNSIGNED_BYTE, surfacePixels);
     glPixelStorei(GL_PACK_ROW_LENGTH, 0);

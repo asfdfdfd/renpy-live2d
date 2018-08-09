@@ -34,10 +34,7 @@ class Live2DDisplayable(renpy.Displayable):
         surface.lock()
         self.scene.draw(surface.get_pitch() // surface.get_bytesize(), surface._pixels_address)        
         surface.unlock()
-                                                                
-        surface_rotated = pygame.transform.rotate(surface, 180)
-        surface.blit(surface_rotated, (0, 0))
-                            
+                                    
         renpy.display.render.redraw(self, 0.06)
                 
         return result
