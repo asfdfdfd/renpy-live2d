@@ -1,9 +1,4 @@
 import renpy.exports as renpy
-import ctypes
-from ctypes import util, c_float
-from OpenGL.GL import *
-from OpenGL.GL import shaders
-from OpenGL.GLU import *
 from live2d.wrapper import PyCubismUserModel, PyCubismModelSettingJson, PyLAppModel, PyLAppDelegate, PyLAppScene
 import json
 import os
