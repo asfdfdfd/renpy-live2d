@@ -22,7 +22,7 @@ public:
     void ReleaseModel(LAppModel* model);
     
     void Update();    
-    void Draw(Csm::CubismMatrix44& matrix);
+    void Draw(const Csm::csmUint32& stride, void* surfacePixels);
     
 private:
         

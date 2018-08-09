@@ -82,7 +82,7 @@ void LAppScene::Update()
     }
 }
 
-void LAppScene::Draw(CubismMatrix44& matrix) 
+void LAppScene::Draw(const csmUint32& stride, void* surfacePixels) 
 {
     // Prepare for render.
     
@@ -140,16 +140,11 @@ void LAppScene::Draw(CubismMatrix44& matrix)
         
     // Read render result.
     
-    // result = renpy.Render(1024, 1024)
-    // surface = result.canvas().get_surface()
-    // surface.lock()
-    // glPixelStorei(GL_PACK_ROW_LENGTH, surface.get_pitch() // surface.get_bytesize())
-    // glReadPixels(0, 0, 1024, 1024, GL_RGBA, GL_UNSIGNED_BYTE, surface._pixels_address)
-    // glPixelStorei(GL_PACK_ROW_LENGTH, 0)
-    // surface.unlock()
-    //
-    // surface_rotated = pygame.transform.rotate(surface, 180)
-    // surface.blit(surface_rotated, (0, 0))
+    glPixelStorei(GL_PACK_ROW_LENGTH, stride);
+    glReadPixels(0, 0, _width, _height, GL_RGBA, GL_UNSIGNED_BYTE, surfacePixels);
+    glPixelStorei(GL_PACK_ROW_LENGTH, 0);
     
+    // Cleanup.
+        
     glBindFramebuffer(GL_FRAMEBUFFER, 0);       
 }

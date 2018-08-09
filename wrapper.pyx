@@ -8,6 +8,7 @@ ctypedef char csmChar
 ctypedef int csmSizeInt
 ctypedef void (*cfptr)(int)
 ctypedef signed int csmInt32
+ctypedef unsigned int csmUint32
 ctypedef float csmFloat32
 
 cdef extern from "Math/CubismMatrix44.hpp" namespace "Live2D::Cubism::Framework":
@@ -94,6 +95,38 @@ cdef extern from "LAppDelegate.hpp":
         LAppDelegate* GetInstance()
         void Initialize()
 
+cdef extern from "LAppScene.hpp":
+    cdef cppclass LAppScene:
+        LAppModel* CreateModel(const char* dir, const char* filename)    
+        void ReleaseModel(LAppModel* model)
+        
+        void Initialize(csmUint32 width, csmUint32 height)
+        
+        void Update()
+        void Draw(csmUint32 stride, void* pixels)
+                                
+cdef class PyLAppScene:
+    cdef LAppScene* thisptr
+
+    def __cinit__(self):
+        self.thisptr = new LAppScene()
+
+    def initialize(self, width, height):
+        self.thisptr.Initialize(width, height)
+
+    def create_model(self, unicode dir, unicode filename):
+        cdef LAppModel* model_ptr = self.thisptr.CreateModel(dir.encode("UTF-8"), filename.encode("UTF-8"))
+        return PyLAppModel.create(model_ptr)
+                    
+    def release_model(self, PyLAppModel model):
+        self.thisptr.ReleaseModel(model.thisptr)
+                     
+    def update(self):
+        self.thisptr.Update()
+
+    def draw(self, int stride, long pixels):
+        self.thisptr.Draw(stride, <void*>pixels)
+                               
 cdef class PyCubismFramework:
 
     @staticmethod
@@ -166,15 +199,28 @@ cdef class PyLAppModel:
 
     cdef CubismViewMatrix viewMatrix
         
-    def __cinit__(self):
-        self.thisptr = new LAppModel()
+    @staticmethod
+    cdef create(LAppModel* model_ptr):
+        model = PyLAppModel()
+        model.thisptr = model_ptr
+        return model;
         
-        ratio = 512.0 / 512.0
-        self.viewMatrix.SetScreenRect(-1, 1, -ratio, ratio)
-        self.viewMatrix.SetMaxScale(2.0)
-        self.viewMatrix.SetMinScale(0.8)
-        self.viewMatrix.SetMaxScreenRect(-2, 2, -2, 2)
-        
+    def __cinit__(self, *args, **kwargs):
+        pass
+        #if len(args) == 0:
+        #    self.thisptr = new LAppModel()
+        #else:            
+        #    self.thisptr = args[0]
+        #
+        #ratio = 512.0 / 512.0
+        #self.viewMatrix.SetScreenRect(-1, 1, -ratio, ratio)
+        #self.viewMatrix.SetMaxScale(2.0)
+        #self.viewMatrix.SetMinScale(0.8)
+        #self.viewMatrix.SetMaxScreenRect(-2, 2, -2, 2)
+    
+    def __init__(self, *args, **kwargs):
+        pass
+    
     def load_assets(self, unicode dir, unicode filename):
         self.thisptr.LoadAssets(dir.encode("UTF-8"), filename.encode("UTF-8"))
                              
