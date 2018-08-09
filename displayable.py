@@ -22,7 +22,7 @@ class Live2DDisplayable(renpy.Displayable):
         self.scene_initialized = False
         
         self.render_width = 1024
-        self.render_height = 1024
+        self.render_height = 512
         
     def render(self, width, height, st, at):     
         if self.scene_initialized == False:
