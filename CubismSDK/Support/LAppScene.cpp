@@ -105,7 +105,13 @@ void LAppScene::Draw(CubismMatrix44& matrix)
     glLoadIdentity();
             
     glFrontFace(GL_CCW);
-            
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                                
     // LAppLive2DManager matrices operations.
     
     CubismMatrix44 projection;

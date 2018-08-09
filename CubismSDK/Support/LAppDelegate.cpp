@@ -8,7 +8,6 @@
 #include "LAppDelegate.hpp"
 #include <iostream>
 #include <sstream>
-#include "LAppView.hpp"
 #include "LAppPal.hpp"
 #include "LAppDefine.hpp"
 #include "LAppTextureManager.hpp"
@@ -48,35 +47,15 @@ bool LAppDelegate::Initialize()
         LAppPal::PrintLog("START");
     }
 
-    //テクスチャサンプリング設定
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-    //透過設定
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    //AppViewの初期化
-    _view->Initialize();
-
     // Cubism3の初期化
     InitializeCubism();
-    
-    // SetRootDirectory();
-    
-    //load model
-    // LAppLive2DManager::GetInstance();
-    
-    //load sprite
-    _view->InitializeSprite();
-
+        
     return GL_TRUE;
 }
 
 void LAppDelegate::Release()
 {
     delete _textureManager;
-    delete _view;
 
     // リソースを解放
     // LAppLive2DManager::ReleaseInstance();
@@ -118,7 +97,6 @@ LAppDelegate::LAppDelegate():
     _captured(false),
     _isEnd(false)
 {
-    _view = new LAppView();
     _textureManager = new LAppTextureManager();
 }
 

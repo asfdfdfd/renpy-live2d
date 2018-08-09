@@ -19,8 +19,6 @@ class Live2DDisplayable(renpy.Displayable):
         self.render_buffer_depth = 0
                 
         # TODO. Handle PyLAppDelegate::Run.
-        # TODO. Handle LAppView::Initialize.
-        # TODO. LAppLive2DManager::OnUpdate.
         PyLAppDelegate.initialize()
         PyCubismFramework.startup()        
         PyCubismFramework.initialize()

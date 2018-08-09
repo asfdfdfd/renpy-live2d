@@ -12,7 +12,6 @@
 #include "Type/csmVector.hpp"
 #include "LAppAllocator.hpp"
 
-class LAppView;
 class LAppTextureManager;
 
 /**
@@ -57,11 +56,6 @@ public:
     GLuint CreateShader();
 
     /**
-    * @brief   View情報を取得する。
-    */
-    LAppView* GetView() { return _view; }
-
-    /**
     * @brief   アプリケーションを終了するかどうか。
     */
     bool GetIsEnd() { return _isEnd; }
@@ -99,7 +93,6 @@ private:
 
     LAppAllocator _cubismAllocator;              ///< Cubism3 Allocator
     Csm::CubismFramework::Option _cubismOption;  ///< Cubism3 Option
-    LAppView* _view;                             ///< View情報
     bool _captured;                              ///< クリックしているか
     bool _isEnd;                                 ///< APP終了しているか
     LAppTextureManager* _textureManager;         ///< テクスチャマネージャー
