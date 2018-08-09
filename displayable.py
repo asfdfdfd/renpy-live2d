@@ -8,7 +8,8 @@ from live2d.wrapper import PyCubismUserModel, PyCubismModelSettingJson, PyLAppMo
 import json
 import os
 import pygame
-                      
+from renpy.loader import transfn
+
 class Live2DDisplayable(renpy.Displayable):
         
     def __init__(self, **kwargs):
@@ -27,7 +28,8 @@ class Live2DDisplayable(renpy.Displayable):
     def render(self, width, height, st, at):     
         if self.scene_initialized == False:
             self.scene.initialize(self.render_width, self.render_height)
-            self.model = self.scene.create_model(u'/Users/asfdfdfd/Work/asfdfdfd/ProjectLive2D/game/live2d_resources/Hiyori/', u'Hiyori.model3.json')            
+            # TODO: Get rid of transfn.
+            self.model = self.scene.create_model(transfn('live2d_resources/Hiyori/'), u'Hiyori.model3.json')            
             self.scene_initialized = True
             
         self.scene.update()
