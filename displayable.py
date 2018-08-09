@@ -27,10 +27,22 @@ class Live2DDisplayable(renpy.Displayable):
         # TODO: Do not forget to call 'PyCubismFramework.dispose()'.
                                 
     def render(self, width, height, st, at):            
-        if self.framebuffer == 0:
-            self.create_framebuffer()
-            self.create_live2d_model()
+        # if self.framebuffer == 0:
+            # self.create_framebuffer()
+            # self.create_live2d_model()
                         
+        # self.pre_render()
+        #
+        # self.model.update()
+        # self.model.draw()
+        #
+        # result = self.post_render()
+                                                                
+        renpy.display.render.redraw(self, 0.06)
+                
+        return result
+    
+    def pre_render(self):
         glBindFramebuffer(GL_FRAMEBUFFER, self.framebuffer)            
         
         glUseProgram(0)
@@ -53,10 +65,8 @@ class Live2DDisplayable(renpy.Displayable):
         glLoadIdentity()
                 
         glFrontFace(GL_CCW)
-            
-        self.model.update()
-        self.model.draw()
-                                                
+        
+    def post_render(self):
         result = renpy.Render(1024, 1024)                
         surface = result.canvas().get_surface()
         surface.lock()
@@ -69,20 +79,8 @@ class Live2DDisplayable(renpy.Displayable):
         surface.blit(surface_rotated, (0, 0))
         
         glBindFramebuffer(GL_FRAMEBUFFER, 0)
-                        
-        # result.fill("#FF0000")
-        # TODO: Slow, allocates one surface every time.
-        # surface = result.canvas().get_surface()
-        # surface.lock() 
-        # width * height * sizeof(GLubyte) * 3
-        # TODO: https://github.com/bitsawer/renpy-shader/blob/7ce330370397a160fe1369823294d26b6be129ee/ShaderDemo/game/shader/controller.py#L163
-        # pixels = ( GLubyte * (3*1024*1024) )(0)
-        # glReadPixels(0, 0, 1024, 1024, GL_RGBA, GL_UNSIGNED_BYTE, surface._pixels_address)
-        # surface.unlock()
-                                        
-        renpy.display.render.redraw(self, 0.06)
-                
-        return result
+        
+        return result                
         
     def create_framebuffer(self):            
         # Create FBO texure.

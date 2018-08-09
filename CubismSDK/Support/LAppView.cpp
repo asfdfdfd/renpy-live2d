@@ -10,7 +10,6 @@
 #include <string>
 #include "LAppPal.hpp"
 #include "LAppDelegate.hpp"
-#include "LAppLive2DManager.hpp"
 #include "LAppTextureManager.hpp"
 #include "LAppDefine.hpp"
 
@@ -65,8 +64,7 @@ void LAppView::Initialize()
 
 void LAppView::Render() 
 {
-    LAppLive2DManager* Live2DManager = LAppLive2DManager::GetInstance();
-    Live2DManager->OnUpdate();
+
 }
 
 void LAppView::InitializeSprite()

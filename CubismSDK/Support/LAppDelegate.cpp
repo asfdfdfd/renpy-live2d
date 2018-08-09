@@ -11,7 +11,6 @@
 #include "LAppView.hpp"
 #include "LAppPal.hpp"
 #include "LAppDefine.hpp"
-#include "LAppLive2DManager.hpp"
 #include "LAppTextureManager.hpp"
 
 using namespace Csm;
@@ -66,7 +65,7 @@ bool LAppDelegate::Initialize()
     // SetRootDirectory();
     
     //load model
-    LAppLive2DManager::GetInstance();
+    // LAppLive2DManager::GetInstance();
     
     //load sprite
     _view->InitializeSprite();
@@ -80,7 +79,7 @@ void LAppDelegate::Release()
     delete _view;
 
     // リソースを解放
-    LAppLive2DManager::ReleaseInstance();
+    // LAppLive2DManager::ReleaseInstance();
     
     //Cubism3の解放
     CubismFramework::Dispose();
