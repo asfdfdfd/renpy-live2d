@@ -64,34 +64,6 @@ void LAppDelegate::Release()
     CubismFramework::Dispose();
 }
 
-// void LAppDelegate::Run()
-// {
-//     //メインループ
-//     while (glfwWindowShouldClose(_window) == GL_FALSE && !_isEnd)
-//     {
-//         // 時間更新
-//         LAppPal::UpdateTime();
-//
-//         // 画面の初期化
-//         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-//         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//         glClearDepth(1.0);
-//
-//         //描画更新
-//         _view->Render();
-//
-//         // バッファの入れ替え
-//         glfwSwapBuffers(_window);
-//
-//         // Poll for and process events
-//         glfwPollEvents();
-//     }
-//
-//     Release();
-//
-//     LAppDelegate::ReleaseInstance();
-// }
-
 LAppDelegate::LAppDelegate():
     _cubismOption(),
     _captured(false),

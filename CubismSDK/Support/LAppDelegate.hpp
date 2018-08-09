@@ -46,11 +46,6 @@ public:
     void Release();
     
     /**
-    * @brief   実行処理。
-    */
-    // void ();
-
-    /**
     * @brief　シェーダーを登録する。
     */
     GLuint CreateShader();

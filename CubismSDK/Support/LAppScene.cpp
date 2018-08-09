@@ -72,6 +72,9 @@ void LAppScene::ReleaseModel(LAppModel* model)
 
 void LAppScene::Update() 
 {
+    // TODO: Wrong place to update time. Will not work correctly with multiple scenes.
+    LAppPal::UpdateTime();
+    
     std::set<LAppModel*>::iterator it;
     for (it = _models.begin(); it != _models.end(); ++it)
     {
@@ -91,7 +94,8 @@ void LAppScene::Draw(CubismMatrix44& matrix)
     
     glClearColor(0, 0, 0, 1);             
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            
+    glClearDepth(1.0);
+    
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_LIGHTING);
         
