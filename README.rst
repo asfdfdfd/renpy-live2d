@@ -69,15 +69,17 @@ Extensions for RenPy should be built with special Python version that is configu
         
 Now you have special Python build that is suitable for building Live2D module for RenPy:
 
-1. Open console and go to the folder where you placed content of this repository
+1. Download `Cubism Native SDK <https://live2d.github.io/index.html#native>`_ and replace 'CubismSDK/Core' folder of this library with 'Core' folder from downloaded SDK.
 
-2. Launch 
+2. Open console and go to the folder where you placed content of this repository
+
+3. Launch 
 
    .. code:: shell
    
       %PATH_TO_PYTHON_BUILD%/python setup.py build_ext --inplace
       
-3. Module is ready. Now you could launch RenPy game.
+4. Module is ready. Now you could launch RenPy game.
 
 Linux
 -----

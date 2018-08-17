@@ -5,3 +5,4 @@ wrapper.so
 wrapper.dll
 wrapper.cpp
 __init__.py
+CubismSDK/Core/*
