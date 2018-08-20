@@ -10,6 +10,10 @@
 #include <CubismFramework.hpp>
 #include <string>
 
+#ifdef CSM_TARGET_WIN_GL
+#include <winsock2.h>
+#endif
+
 /**
 * @brief プラットフォーム依存機能を抽象化する Cubism Platform Abstraction Layer.
 *

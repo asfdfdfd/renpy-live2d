@@ -25,9 +25,15 @@ public:
     */
     struct TextureInfo
     {
-        GLuint id = 0;              ///< テクスチャID
-        int width = 0;              ///< 横幅
-        int height = 0;             ///< 高さ
+        TextureInfo() : 
+            id(0), 
+            width(0), 
+            height(0) 
+        {}
+        
+        GLuint id;              ///< テクスチャID
+        int width;              ///< 横幅
+        int height;             ///< 高さ
         std::string fileName;       ///< ファイル名
     };
 
