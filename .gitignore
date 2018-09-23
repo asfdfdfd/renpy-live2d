@@ -4,6 +4,6 @@ build/*
 wrapper.so
 wrapper.dll
 wrapper.cpp
-__init__.py
+wrapper.pyd
 CubismSDK/Core/*
 build.bat
