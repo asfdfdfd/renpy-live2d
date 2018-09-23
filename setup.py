@@ -26,13 +26,13 @@ def library_dirs():
     if platform.system() == "Darwin":
         return ['CubismSDK/Core/lib/macos']
     elif platform.system() == "Windows":
-        return ['CubismSDK/Core/lib/windows/x86/120/', 'glew/lib/Release/Win32']
+        return ['CubismSDK/Core/dll/windows/x86', 'glew/lib/Release/Win32']
         
 def libraries():        
     if platform.system() == "Darwin":
         return ['Live2DCubismCore']
     elif platform.system() == "Windows":
-        return ['Live2DCubismCore_MT', "glew32", "opengl32"]
+        return ['Live2DCubismCore', "glew32", "opengl32"]
 
 def extra_compile_args():
     if platform.system() == "Darwin":
