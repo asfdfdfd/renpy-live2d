@@ -4,14 +4,13 @@ import json
 import os
 import pygame
 
+# TODO: Do not forget to call 'PyCubismFramework.dispose()'.
+PyLAppDelegate.initialize()
+
 class Live2DDisplayable(renpy.Displayable):
         
     def __init__(self, model_dir, model_file, **kwargs):
         super(Live2DDisplayable, self).__init__(**kwargs)
-    
-        # TODO. Move to the upper level to support multiple displayables.
-        # TODO: Do not forget to call 'PyCubismFramework.dispose()'.        
-        PyLAppDelegate.initialize()
     
         self.scene = PyLAppScene()
         self.scene_initialized = False
