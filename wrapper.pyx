@@ -10,6 +10,7 @@ ctypedef void (*cfptr)(int)
 ctypedef signed int csmInt32
 ctypedef unsigned int csmUint32
 ctypedef float csmFloat32
+ctypedef void* CubismMotionQueueEntryHandle
 
 cdef extern from "Math/CubismMatrix44.hpp" namespace "Live2D::Cubism::Framework":
     cdef cppclass CubismMatrix44:
@@ -87,8 +88,11 @@ cdef extern from "LAppModel.hpp":
         void LoadAssets(const char* dir, const char* filename)
         void Draw(CubismMatrix44& matrix)
         void Update()
+        void SetExpression(const csmChar* expressionID)
         void SetRandomExpression()
-
+        CubismMotionQueueEntryHandle StartMotion(const csmChar* group, csmInt32 no, csmInt32 priority)
+        CubismMotionQueueEntryHandle StartRandomMotion(const csmChar* group, csmInt32 priority)
+        
 cdef extern from "LAppDelegate.hpp":
     cdef cppclass LAppDelegate:
         @staticmethod
