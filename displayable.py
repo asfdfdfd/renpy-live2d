@@ -3,7 +3,6 @@ from live2d.wrapper import PyCubismUserModel, PyCubismModelSettingJson, PyLAppMo
 import json
 import os
 import pygame
-from renpy.loader import transfn
 
 class Live2DDisplayable(renpy.Displayable):
         
@@ -26,7 +25,6 @@ class Live2DDisplayable(renpy.Displayable):
     def render(self, width, height, st, at):     
         if self.scene_initialized == False:
             self.scene.initialize(self.render_width, self.render_height)
-            # TODO: Get rid of transfn.
             self.model = self.scene.create_model(self.model_dir, self.model_file)            
             self.scene_initialized = True
             
