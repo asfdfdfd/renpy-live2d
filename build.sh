@@ -1,0 +1,1 @@
+~/Work/opensource/renpy-deps/install/bin/python setup.py build_ext --inplace
