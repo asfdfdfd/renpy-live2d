@@ -3,10 +3,11 @@ from live2d.wrapper import PyCubismUserModel, PyCubismModelSettingJson, PyLAppMo
 import json
 import os
 import pygame
+from renpy.display.core import Interface
 
 # TODO: Do not forget to call 'PyCubismFramework.dispose()'.
 PyLAppDelegate.initialize()
-
+    
 class Live2DDisplayable(renpy.Displayable):
         
     def __init__(self, model_dir, model_file, **kwargs):
@@ -20,11 +21,23 @@ class Live2DDisplayable(renpy.Displayable):
         
         self.model_dir = model_dir
         self.model_file = model_file
+            
+        interface_set_mode_old = Interface.set_mode
+
+        self_displayable = self
+        
+        def interface_set_mode_new(self, physical_size=None):
+            interface_set_mode_old(self, physical_size)
+            self_displayable.initialize()
+
+        Interface.set_mode = interface_set_mode_new
+
+    def initialize(self):
+        self.scene.initialize(self.render_width, self.render_height)
         
     def render(self, width, height, st, at):     
         if self.scene_initialized == False:
-            self.scene.initialize(self.render_width, self.render_height)
-            self.model = self.scene.create_model(self.model_dir, self.model_file)            
+            self.model = self.scene.create_model(self.model_dir, self.model_file)                    
             self.scene_initialized = True
             
         self.scene.update()
