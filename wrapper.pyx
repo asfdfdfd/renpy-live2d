@@ -238,10 +238,21 @@ cdef class PyLAppModel:
         #projection.TranslateRelative(-1, 0.5)
         #projection.Scale(0.1, 0.1)
         self.thisptr.Draw(projection)
-               
+
+    def set_expression(self, unicode expression_id):
+        self.thisptr.SetExpression(expression_id.encode("UTF-8"))
+        
     def set_random_expression(self):
         self.thisptr.SetRandomExpression()
         
+    # TODO: Return CubismMotionQueueEntryHandle.
+    def start_motion(self, unicode group, no, priority):
+        self.thisptr.StartMotion(group.encode("UTF-8"), no, priority)
+
+    # TODO: Return CubismMotionQueueEntryHandle.        
+    def start_random_motion(self, unicode group, priority):
+        self.thisptr.StartRandomMotion(group.encode("UTF-8"), priority)
+                                    
 cdef class PyCubismModelSettingJson:
     cdef CubismModelSettingJson* thisptr;
 
