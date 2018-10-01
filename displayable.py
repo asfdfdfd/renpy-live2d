@@ -10,7 +10,7 @@ PyLAppDelegate.initialize()
     
 class Live2DDisplayable(renpy.Displayable):
         
-    def __init__(self, model_dir, model_file, **kwargs):
+    def __init__(self, **kwargs):
         super(Live2DDisplayable, self).__init__(**kwargs)
     
         self.scene = PyLAppScene()
@@ -18,10 +18,7 @@ class Live2DDisplayable(renpy.Displayable):
         
         self.render_width = 1024
         self.render_height = 512
-        
-        self.model_dir = model_dir
-        self.model_file = model_file
-            
+                    
         interface_set_mode_old = Interface.set_mode
 
         self_displayable = self
@@ -35,11 +32,7 @@ class Live2DDisplayable(renpy.Displayable):
     def initialize(self):
         self.scene.initialize(self.render_width, self.render_height)
         
-    def render(self, width, height, st, at):     
-        if self.scene_initialized == False:
-            self.model = self.scene.create_model(self.model_dir, self.model_file)                    
-            self.scene_initialized = True
-            
+    def render(self, width, height, st, at):                 
         self.scene.update()
                                   
         result = renpy.Render(self.render_width, self.render_height)
@@ -52,3 +45,5 @@ class Live2DDisplayable(renpy.Displayable):
                 
         return result
         
+    def create_model(self, model_dir, model_file):
+        return self.scene.create_model(model_dir, model_file)   
