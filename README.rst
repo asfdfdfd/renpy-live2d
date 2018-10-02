@@ -42,7 +42,13 @@ Usage example
 Installing
 ==========
 
-Create 'live2d' folder inside 'game' folder of your project. And copy content of repository to this folder. Then follow 'Building' section. Prebuilt modules will be provided in the future.
+1. Go to the `releases section <https://github.com/asfdfdfd/renpy-live2d/releases>`_ and download latest release.
+
+2. Extract files and place 'live2d' folder to the 'game' folder of your RenPy project.
+
+3. Download `Cubism Native SDK <https://live2d.github.io/index.html#native>`_ and replace 'CubismSDK/Core' folder of this library with 'Core' folder from downloaded SDK.
+
+4. You are ready to go.
 
 Building
 ========
