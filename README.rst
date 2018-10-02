@@ -3,9 +3,20 @@ Introduction
 
 This is attempt to create Live2D module for RenPy. This is WIP and not production version. Project has no ETA. This source code is invitation to developers that are willing to help with development of module.
 
-Windows version is not ready yet.
-
 This module works only with OpenGL renderer.
+
+Installing
+==========
+
+As for now prebuild version of this module available only for macOS and Windows.
+
+1. Go to the `'release' section <https://github.com/asfdfdfd/renpy-live2d/releases>`_ and download latest release.
+
+2. Extract files and place 'live2d' folder to the 'game' folder of your RenPy project.
+
+3. Download `Cubism Native SDK <https://live2d.github.io/index.html#native>`_ and replace 'CubismSDK/Core' folder of this library with 'Core' folder from downloaded SDK.
+
+4. You are ready to go.
 
 Usage example
 =============
@@ -38,17 +49,6 @@ Usage example
         h "Once you add a story, pictures, and music, you can release it to the world!"
 
         return
-
-Installing
-==========
-
-1. Go to the `releases section <https://github.com/asfdfdfd/renpy-live2d/releases>`_ and download latest release.
-
-2. Extract files and place 'live2d' folder to the 'game' folder of your RenPy project.
-
-3. Download `Cubism Native SDK <https://live2d.github.io/index.html#native>`_ and replace 'CubismSDK/Core' folder of this library with 'Core' folder from downloaded SDK.
-
-4. You are ready to go.
 
 Building
 ========
