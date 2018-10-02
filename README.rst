@@ -12,22 +12,30 @@ Usage example
 
 .. code:: renpy
 
-    define e = Character("Eileen")
+    define h = Character("Hiyori")
 
     init python:
         from live2d.displayable import Live2DDisplayable
         from renpy.loader import transfn
     
+        sprite_live2d = Live2DDisplayable()
+    
     init:
-        image sprite_live2d = Live2DDisplayable(transfn(u'live2d_resources/Hiyori/'), u'Hiyori.model3.json')
+        image sprite_live2d = sprite_live2d
     
     label start:
-
-        show sprite_live2d
     
-        e "You've created a new Ren'Py game."
+        show sprite_live2d
+            
+        $ live2d_model_hiyori = sprite_live2d.scene.create_model(transfn(u'live2d_resources/Hiyori/'), u'Hiyori.model3.json')
+    
+        $ live2d_model_hiyori.start_random_motion(group = u"Idle", priority = 3)
+    
+        h "You've created a new Ren'Py game."
 
-        e "Once you add a story, pictures, and music, you can release it to the world!"
+        $ live2d_model_hiyori.start_motion(group = u"TapBody", no = 0, priority = 3)
+
+        h "Once you add a story, pictures, and music, you can release it to the world!"
 
         return
 
