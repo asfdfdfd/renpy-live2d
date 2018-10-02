@@ -97,8 +97,36 @@ Should be similar to macOS but i could not confirm.
 Windows
 -------
 
-Windows has no support yet because Live2D has not prebuilt version of Core for MSVC 9. I'm waiting response from Live2D and thinking about wrapper with dynamic loading of methods from DLL if Live2D will not response.
+1. Download and install `Microsoft Visual C++ Compiler for Python 2.7 <https://www.microsoft.com/en-us/download/details.aspx?id=44266>`_
 
+2. Download and install x86 version of `Python 2.7.10  <https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi>`_
+
+3. Download `Cubism Native SDK <https://live2d.github.io/index.html#native>`_ and replace 'CubismSDK/Core' folder of this library with 'Core' folder from downloaded SDK.
+
+4. Launch 'Visual C++ 2008 32-bit Command Prompt' from 'Start' menu and go to 'CubismSDK/Core/dll/windows/x86' folder.
+
+5. Launch
+
+    .. code:: shell
+    
+        dumpbin /EXPORTS Live2DCubismCore.dll > Live2DCubismCore.exports
+
+6. Edit 'Live2DCubismCore.exports' to create 'Live2DCubismCore.def' file. Also you could get ready 'def' file `here <https://gist.github.com/asfdfdfd/e20835ed92bd245e258d8a1c1b2f77ac>`_ but it may be a bit outdated so i recommend to create it by yourself.
+
+7. Launch
+    
+    .. code:: shell
+    
+        lib /def:Live2DCubismCore.def /out:Live2DCubismCore.lib
+
+8. Go to root module folder and launch
+
+    .. code:: shell
+    
+        %PATH_TO_PYTHON%\python.exe setup.py build_ext --inplace --compiler=msvc
+        
+9. Module is ready. Now you could launch RenPy game.
+        
 Installing
 ==========
 
