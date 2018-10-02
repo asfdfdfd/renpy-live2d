@@ -67,13 +67,13 @@ Extensions for RenPy should be built with special Python version that is configu
         export LD_LIBRARY_PATH="$INSTALL/lib"
         export DYLIB_LIBRARY_PATH="$INSTALL/lib"
 
-3. Run script and build Python.
+3. Run script to create custom Python build.
 
 4. Download Cython source code and install it via launching 'setup.py' script with fresh Python build:
 
    .. code:: shell
         
-        %PATH_TO_PYTHON_BUILD%/python setup.py install
+        %PATH_TO_CUSTOM_PYTHON_BUILD%/python setup.py install
         
 Now you have special Python build that is suitable for building Live2D module for RenPy:
 
