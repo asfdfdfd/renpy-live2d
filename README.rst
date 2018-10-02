@@ -39,6 +39,11 @@ Usage example
 
         return
 
+Installing
+==========
+
+Create 'live2d' folder inside 'game' folder of your project. And copy content of repository to this folder. Then follow 'Building' section. Prebuilt modules will be provided in the future.
+
 Building
 ========
 
@@ -126,8 +131,3 @@ Windows
         %PATH_TO_PYTHON%\python.exe setup.py build_ext --inplace --compiler=msvc
         
 9. Module is ready. Now you could launch RenPy game.
-        
-Installing
-==========
-
-Create 'live2d' folder inside 'game' folder of your project. And copy content of repository to this folder. Then follow 'Building' section. Prebuilt modules will be provided in the future.
