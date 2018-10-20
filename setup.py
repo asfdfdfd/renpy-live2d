@@ -71,7 +71,8 @@ def recursive_glob(search_path, filename_glob):
     matching_filenames = set()
     for root, dirs, files in os.walk(search_path):
         matching_filenames.update([os.path.join(root, filename) for filename in fnmatch.filter(files, filename_glob)])
-    return list(matching_filenames)
+    # Quick hack to exclude D3D9 from build process as we has not support for D3D9 yet.
+    return [x for x in list(matching_filenames) if "D3D9" not in x]
 
 setup(name='live2d',
       cmdclass = {'build_ext': build_ext},
