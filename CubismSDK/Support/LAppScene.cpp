@@ -92,7 +92,7 @@ void LAppScene::Draw(const csmUint32& stride, void* surfacePixels)
     
     glViewport(0, 0, _width, _height);
     
-    glClearColor(0, 0, 0, 1);             
+    glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearDepth(1.0);
     
