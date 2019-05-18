@@ -66,34 +66,34 @@ Extensions for RenPy should be built with custmoized Python 2.7.10 version that 
 
 1. Install pyenv.
 
-    .. code:: shell
-       
-        brew install pyenv
-       
-    If you want want to integrate pyenv into your shell read `'installation' section <https://github.com/pyenv/pyenv#installation>`_ in pyenv manual. I assume that you want to use pyenv just to build module and do not want to make deep integration.
+.. code:: shell
+   
+    brew install pyenv
+   
+If you want want to integrate pyenv into your shell read `'installation' section <https://github.com/pyenv/pyenv#installation>`_ in pyenv manual. I assume that you want to use pyenv just to build module and do not want to make deep integration.
 
 2. Install python.
 
-    .. code:: shell
+.. code:: shell
 
-        PYTHON_CONFIGURE_OPTS="--enable-unicode=ucs4 --enable-shared" pyenv install 2.7.10    
+    PYTHON_CONFIGURE_OPTS="--enable-unicode=ucs4 --enable-shared" pyenv install 2.7.10    
 
-    If it fails with error read `pyenv common build problems <https://github.com/pyenv/pyenv/wiki/common-build-problems>`_.
-    
-    If you need to have multiple Python 2.7.10 installs use `pyenv-alias plugin <https://github.com/s1341/pyenv-alias>`_.
+If it fails with error read `pyenv common build problems <https://github.com/pyenv/pyenv/wiki/common-build-problems>`_.
+
+If you need to have multiple Python 2.7.10 installs use `pyenv-alias plugin <https://github.com/s1341/pyenv-alias>`_.
 
 3. Create folder to store python virtual environment. It will be mentioned as %TARGET_DIR%.
     
 4. Create virtual environment and install required packages.
 
-    .. code:: shell
-    
-        cd %TARGET_DIR%
-        pyenv local 2.7.10
-        $(pyenv root)/versions/2.7.10/bin/pip install --upgrade pip
-        $(pyenv root)/versions/2.7.10/bin/pip install virtualenv
-        $(pyenv root)/versions/2.7.10/bin/virtualenv .
-        bin/pip install pyasn1==0.1.7 rsa==3.1.4 altgraph==0.12 macholib==1.7 cython==0.29.7
+.. code:: shell
+
+    cd %TARGET_DIR%
+    pyenv local 2.7.10
+    $(pyenv root)/versions/2.7.10/bin/pip install --upgrade pip
+    $(pyenv root)/versions/2.7.10/bin/pip install virtualenv
+    $(pyenv root)/versions/2.7.10/bin/virtualenv .
+    bin/pip install pyasn1==0.1.7 rsa==3.1.4 altgraph==0.12 macholib==1.7 cython==0.29.7
                              
 Now you have special Python build that is suitable for building Live2D module for RenPy:
 
@@ -103,9 +103,9 @@ Now you have special Python build that is suitable for building Live2D module fo
 
 3. Launch 
 
-   .. code:: shell
-   
-      %TARGET_DIR%/bin/python setup.py build_ext --inplace
+.. code:: shell
+
+  %TARGET_DIR%/bin/python setup.py build_ext --inplace
       
 4. Module is ready. Now you could launch RenPy game.
 
@@ -127,22 +127,22 @@ Windows
 
 5. Launch
 
-    .. code:: shell
-    
-        dumpbin /EXPORTS Live2DCubismCore.dll > Live2DCubismCore.exports
+.. code:: shell
+
+    dumpbin /EXPORTS Live2DCubismCore.dll > Live2DCubismCore.exports
 
 6. Edit 'Live2DCubismCore.exports' to create 'Live2DCubismCore.def' file. Also you could get ready 'def' file `here <https://gist.github.com/asfdfdfd/e20835ed92bd245e258d8a1c1b2f77ac>`_ but it may be a bit outdated so i recommend to create it by yourself.
 
 7. Launch
     
-    .. code:: shell
-    
-        lib /def:Live2DCubismCore.def /out:Live2DCubismCore.lib
+.. code:: shell
+
+    lib /def:Live2DCubismCore.def /out:Live2DCubismCore.lib
 
 8. Go to root module folder and launch
 
-    .. code:: shell
-    
-        %PATH_TO_PYTHON%\python.exe setup.py build_ext --inplace --compiler=msvc
+.. code:: shell
+
+    %PATH_TO_PYTHON%\python.exe setup.py build_ext --inplace --compiler=msvc
         
 9. Module is ready. Now you could launch RenPy game.
