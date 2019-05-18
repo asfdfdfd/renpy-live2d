@@ -53,39 +53,44 @@ Usage example
 Building
 ========
 
+This section is for those who wants to participate in extension development. If you do not want to participate in development and just want to use your Live2D models in RenPy — read 'Installing' section.
+
 macOS
 -----
 
-Extensions for RenPy should be built with special Python version that is configured for RenPy:
+Extensions for RenPy should be built with custmoized Python 2.7.10 version that is configured for RenPy. The most convenient way is to use pyenv.
 
-1. Download `renpy-deps <https://github.com/renpy/renpy-deps>`_ repository.
+1. Install pyenv.
 
-2. Open 'build_python.sh' script and apply patch:
+    .. code:: shell
+       
+        brew install pyenv
+       
+    If you want want to integrate pyenv into your shell read `'installation' section <https://github.com/pyenv/pyenv#installation>`_ in pyenv manual. I assume that you want to use pyenv just to build module and do not want to make deep integration.
 
-   .. code:: diff
-   
-       diff --git a/build_python.sh b/build_python.sh
-       index ca76c4d..274d03e 100755
-       --- a/build_python.sh
-       +++ b/build_python.sh
-       @@ -7,7 +7,7 @@ INSTALL=$PWD/install
+2. Install python.
 
-        # The xes are required to prevent msys from interpreting these as
-        # paths. (We use the system python to do this normalization.)
-       -SOURCE=`python $SOURCE/norm_source.py "x$PWD" "x$SOURCE"`
-       +SOURCE=`python2 $SOURCE/norm_source.py "x$PWD" "x$SOURCE"`
+    .. code:: shell
 
-        export LD_LIBRARY_PATH="$INSTALL/lib"
-        export DYLIB_LIBRARY_PATH="$INSTALL/lib"
+        PYTHON_CONFIGURE_OPTS="--enable-unicode=ucs4 --enable-shared" pyenv install 2.7.10    
 
-3. Run script to create custom Python build.
+    If it fails with error read `pyenv common build problems <https://github.com/pyenv/pyenv/wiki/common-build-problems>`_.
+    
+    If you need to have multiple Python 2.7.10 installs use `pyenv-alias plugin <https://github.com/s1341/pyenv-alias>`_.
 
-4. Download Cython source code and install it via launching 'setup.py' script with fresh Python build:
+3. Create folder to store python virtual environment. It will be mentioned as %TARGET_DIR%.
+    
+4. Create virtual environment and install required packages.
 
-   .. code:: shell
-        
-        %PATH_TO_CUSTOM_PYTHON_BUILD%/python setup.py install
-        
+    .. code:: shell
+    
+        cd %TARGET_DIR%
+        pyenv local 2.7.10
+        $(pyenv root)/versions/2.7.10/bin/pip install --upgrade pip
+        $(pyenv root)/versions/2.7.10/bin/pip install virtualenv
+        $(pyenv root)/versions/2.7.10/bin/virtualenv .
+        bin/pip install pyasn1==0.1.7 rsa==3.1.4 altgraph==0.12 macholib==1.7 cython==0.29.7
+                             
 Now you have special Python build that is suitable for building Live2D module for RenPy:
 
 1. Download `Cubism Native SDK <https://live2d.github.io/index.html#native>`_ and replace 'CubismSDK/Core' folder of this library with 'Core' folder from downloaded SDK.
@@ -96,7 +101,7 @@ Now you have special Python build that is suitable for building Live2D module fo
 
    .. code:: shell
    
-      %PATH_TO_PYTHON_BUILD%/python setup.py build_ext --inplace
+      %TARGET_DIR%/bin/python setup.py build_ext --inplace
       
 4. Module is ready. Now you could launch RenPy game.
 
