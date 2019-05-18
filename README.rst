@@ -5,6 +5,10 @@ This is attempt to create Live2D module for RenPy. This is WIP and not productio
 
 This module works only with OpenGL renderer.
 
+.. raw:: html
+
+    <a href="https://www.patreon.com/bePatron?u=2321396"><img src="https://c5.patreon.com/external/logo/become_a_patron_button.png" alt="Become a Patron!"/></a>
+
 Installing
 ==========
 
