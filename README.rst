@@ -1,3 +1,8 @@
+DEPRECATED
+==========
+
+RenPy has native Live2D support now. `Use it. <https://www.renpy.org/doc/html/live2d.html>`_
+
 Introduction
 ============
 
